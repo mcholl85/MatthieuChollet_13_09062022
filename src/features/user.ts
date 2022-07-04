@@ -10,7 +10,7 @@ interface UserDataState {
 }
 
 export interface UserState {
-  token: string 
+  token: string
   user: UserDataState
 }
 
@@ -22,15 +22,15 @@ const initialState: UserState = {
     firstName: '',
     id: '',
     lastName: '',
-    updatedAt: ''
-  }
+    updatedAt: '',
+  },
 }
 
 const { actions, reducer } = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (draft, action:PayloadAction<UserState>) => {
+    signIn: (draft, action: PayloadAction<UserState>) => {
       draft.token = action.payload.token
       return
     },
@@ -42,11 +42,11 @@ const { actions, reducer } = createSlice({
         firstName: '',
         id: '',
         lastName: '',
-        updatedAt: ''
+        updatedAt: '',
       }
       return
     },
-    setUser: (draft, action:PayloadAction<UserDataState>) => {
+    setUser: (draft, action: PayloadAction<UserDataState>) => {
       draft.user = action.payload
       return
     },

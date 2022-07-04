@@ -8,11 +8,9 @@ import { Provider } from 'react-redux'
 import { store } from './utils/store'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
@@ -22,6 +20,5 @@ root.render(
         </BrowserRouter>
       </React.StrictMode>
     </Provider>
-  </QueryClientProvider>
-);
-
+  </QueryClientProvider>,
+)
