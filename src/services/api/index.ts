@@ -24,7 +24,7 @@ export async function signin(username: string, password: string) {
 }
 
 export async function getUser(token: string) {
-  if (token) {
+  try {
     const response = await fetch(API_URL + 'profile', {
       method: 'POST',
       headers: {
@@ -38,10 +38,12 @@ export async function getUser(token: string) {
 
     if (!response.ok) {
       const error = (data && data.message) || response.status
-      throw new Error(error)
+      return Promise.reject(error)
     }
 
-    return data
+    return { data }
+  } catch (error) {
+    throw new Error('API not working')
   }
 }
 

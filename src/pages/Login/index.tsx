@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import * as actions from '../../features/user'
-import { signin } from '../../services/api'
+import { signin, getUser } from '../../services/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../../utils/selectors'
 
@@ -11,13 +11,18 @@ export default function Login() {
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const { token } = useSelector(selectUser)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const { data }: any = await signin(username, password)
-      if (data) {
+      const { data: userData }: any = await getUser(data.body.token)
+
+      if (data && userData) {
         dispatch(actions.signIn(data.body))
+        dispatch(actions.setUser(userData.body))
+        navigate('/profile')
       }
     } catch (error) {
       console.error(error)
@@ -26,7 +31,7 @@ export default function Login() {
   }
 
   return token ? (
-    <Navigate to='/' />
+    <Navigate to='/profile' />
   ) : (
     <main className='main bg-dark'>
       <section className='sign-in-content'>
