@@ -18,7 +18,7 @@ function App() {
   const { data } = useQuery(['user', token], async () => getUser(token))
 
   useEffect(() => {
-    if (data && data.status === 200) {
+    if (data) {
       dispatch(actions.setUser(data.body))
     }
   }, [token, data])

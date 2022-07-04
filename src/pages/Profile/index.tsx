@@ -28,6 +28,7 @@ export default function Profile() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [showEditName, setShowEditName] = useState(false)
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const { user, token } = useSelector(selectUser)
 
   const dispatch = useDispatch()
@@ -42,11 +43,13 @@ export default function Profile() {
 
   const handleEdit = () => {
     const NamesHaveOnlyLetters = /^[a-zA-Z]+$/.test(firstName) && /^[a-zA-Z]+$/.test(lastName)
-    const NamesAreTheSame = firstName === user.firstName && lastName === user.lastName
 
-    if (NamesHaveOnlyLetters && !NamesAreTheSame) {
+    if (NamesHaveOnlyLetters) {
       editUserName()
       setShowEditName(false)
+      setShowErrorMessage(false)
+    } else {
+      setShowErrorMessage(true)
     }
   }
 
@@ -85,8 +88,9 @@ export default function Profile() {
                 placeholder={user.lastName}
               />
             </div>
+            {showErrorMessage && <span className='error'>Please enter only letters</span>}
             <div className='edit-button-user-wrapper'>
-              <button className='edit-button edit-button-user' onClick={() => handleEdit()}>
+              <button className='edit-button edit-button-user' onClick={handleEdit}>
                 Save
               </button>
               <button

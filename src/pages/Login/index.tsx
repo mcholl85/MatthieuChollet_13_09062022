@@ -8,14 +8,21 @@ import { selectUser } from '../../utils/selectors'
 export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
   const { token } = useSelector(selectUser)
   const dispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await signin(username, password).then(({ data }) => {
-      dispatch(actions.signIn(data.body))
-    })
+    try {
+      const { data }: any = await signin(username, password)
+      if (data) {
+        dispatch(actions.signIn(data.body))
+      }
+    } catch (error) {
+      console.error(error)
+      setShowErrorMessage(true)
+    }
   }
 
   return token ? (
@@ -44,6 +51,9 @@ export default function Login() {
               id='password'
             />
           </div>
+          {showErrorMessage && (
+            <span className='error login-error'>Username or password is incorrect !</span>
+          )}
           <div className='input-remember'>
             <input type='checkbox' id='remember-me' />
             <label htmlFor='remember-me'>Remember me</label>

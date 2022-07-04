@@ -11,9 +11,15 @@ export async function signin(username: string, password: string) {
       body: JSON.stringify({ email: username, password: password }),
     })
     const data = await response.json()
+
+    if (!response.ok) {
+      const error = (data && data.message) || response.status
+      return Promise.reject(error)
+    }
+
     return { data }
   } catch (error) {
-    throw new Error('Signin error')
+    throw new Error('API not working')
   }
 }
 
@@ -27,7 +33,14 @@ export async function getUser(token: string) {
         Authorization: `Bearer ${token}`,
       },
     })
+
     const data = await response.json()
+
+    if (!response.ok) {
+      const error = (data && data.message) || response.status
+      throw new Error(error)
+    }
+
     return data
   }
 }
@@ -44,8 +57,14 @@ export async function updateUser(token: string, firstName: string, lastName: str
       body: JSON.stringify({ firstName: firstName, lastName: lastName }),
     })
     const data = await response.json()
+
+    if (!response.ok) {
+      const error = (data && data.message) || response.status
+      return Promise.reject(error)
+    }
+
     return { data }
   } catch (error) {
-    throw new Error('Update user error')
+    throw new Error('API not working')
   }
 }

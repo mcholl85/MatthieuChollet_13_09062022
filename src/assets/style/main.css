@@ -275,8 +275,8 @@ body {
 .edit-button-user {
   width: 100px;
   border-color: #00bc77;
-  background-color: #FFF;
-  color:#00bc77;
+  background-color: #fff;
+  color: #00bc77;
   margin: 0 10px;
 }
 
@@ -316,4 +316,16 @@ body {
   .transaction-button {
     width: 200px;
   }
+}
+
+.error {
+  display: block;
+  color: red;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.login-error {
+  text-align: left;
+  margin-left: 0;
 }
