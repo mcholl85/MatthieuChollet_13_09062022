@@ -1,5 +1,13 @@
 const API_URL = 'http://localhost:3001/api/v1/user/'
 
+interface signinResponse {
+  status: number
+  message: string
+  body: {
+    token: string
+  }
+}
+
 export async function signin(username: string, password: string) {
   try {
     const response = await fetch(API_URL + 'login', {
