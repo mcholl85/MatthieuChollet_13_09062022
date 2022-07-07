@@ -1,4 +1,4 @@
-import { signin, getUser, updateUser } from '.'
+import { signin, getUser } from '.'
 
 const MOCK_USER = {
   email: 'steve@rogers.com',
@@ -11,7 +11,7 @@ const INVALID_TOKEN =
 describe('Given I am on the login page', () => {
   describe('Given I fill the form', () => {
     test('with the right identifiers and it should return a successfully response with a token', async () => {
-      const { data } = await signin(MOCK_USER.email, MOCK_USER.password)
+      const data = await signin(MOCK_USER.email, MOCK_USER.password)
       expect(data.status).toEqual(200)
       expect(data.body.token).toBeTruthy()
     })
@@ -32,8 +32,8 @@ describe('Given I am on the login page', () => {
   })
   describe('Given I have a successfully response and i try to get user data with the token', () => {
     test('It should return a sucessfully response', async () => {
-      const { data } = await signin(MOCK_USER.email, MOCK_USER.password)
-      const { data: userData } = await getUser(data.body.token)
+      const data = await signin(MOCK_USER.email, MOCK_USER.password)
+      const userData = await getUser(data.body.token)
       expect(userData.status).toEqual(200)
       expect(userData.body.email).toEqual(MOCK_USER.email)
     })

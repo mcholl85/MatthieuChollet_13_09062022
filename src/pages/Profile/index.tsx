@@ -34,7 +34,7 @@ export default function Profile() {
   const dispatch = useDispatch()
 
   const editUserName = async () => {
-    const { data } = await updateUser(token, firstName, lastName)
+    const data = await updateUser(token, firstName, lastName)
 
     if (data && data.status === 200) {
       dispatch(actions.setUser(data.body))

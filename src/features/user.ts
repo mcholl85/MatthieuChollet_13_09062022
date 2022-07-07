@@ -9,6 +9,10 @@ interface UserDataState {
   updatedAt?: string
 }
 
+interface Token {
+  token: string
+}
+
 export interface UserState {
   token: string
   user: UserDataState
@@ -30,7 +34,7 @@ const { actions, reducer } = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (draft, action: PayloadAction<UserState>) => {
+    signIn: (draft, action: PayloadAction<Token>) => {
       draft.token = action.payload.token
       return
     },

@@ -16,9 +16,8 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const { data } = await signin(username, password)
-      console.log({ data })
-      const { data: userData }: any = await getUser(data.body.token)
+      const data = await signin(username, password)
+      const userData = await getUser(data.body.token)
 
       if (data && userData) {
         dispatch(actions.signIn(data.body))

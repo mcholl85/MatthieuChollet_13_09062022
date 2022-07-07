@@ -8,7 +8,29 @@ interface signinResponse {
   }
 }
 
-export async function signin(username: string, password: string) {
+interface getUserResponse {
+  status: number
+  message: string
+  body: {
+    createdAt: string
+    email: string
+    firstName: string
+    id: string
+    lastName: string
+    updatedAt: string
+  }
+}
+
+interface updateUserResponse {
+  status: number
+  message: string
+  body: {
+    id: string
+    email: string
+  }
+}
+
+export async function signin(username: string, password: string): Promise<signinResponse> {
   try {
     const response = await fetch(API_URL + 'login', {
       method: 'POST',
@@ -25,13 +47,13 @@ export async function signin(username: string, password: string) {
       return Promise.reject(error)
     }
 
-    return { data }
+    return data
   } catch (error) {
     throw new Error('API not working')
   }
 }
 
-export async function getUser(token: string) {
+export async function getUser(token: string): Promise<getUserResponse> {
   try {
     const response = await fetch(API_URL + 'profile', {
       method: 'POST',
@@ -49,13 +71,17 @@ export async function getUser(token: string) {
       return Promise.reject(error)
     }
 
-    return { data }
+    return data
   } catch (error) {
     throw new Error('API not working')
   }
 }
 
-export async function updateUser(token: string, firstName: string, lastName: string) {
+export async function updateUser(
+  token: string,
+  firstName: string,
+  lastName: string,
+): Promise<updateUserResponse> {
   try {
     const response = await fetch(API_URL + 'profile', {
       method: 'PUT',
@@ -73,7 +99,7 @@ export async function updateUser(token: string, firstName: string, lastName: str
       return Promise.reject(error)
     }
 
-    return { data }
+    return data
   } catch (error) {
     throw new Error('API not working')
   }
