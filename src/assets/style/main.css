@@ -215,6 +215,12 @@ body {
   margin: 0 10px;
 }
 
+@media (max-width: 480px) {
+  .input-wrapper-user input {
+    width: 33%;
+  }
+}
+
 .footer {
   display: flex;
   justify-content: center;
