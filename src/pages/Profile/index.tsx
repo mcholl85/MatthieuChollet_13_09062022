@@ -3,26 +3,8 @@ import Account from '../../components/Account'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { selectUser } from '../../utils/selectors'
-import { updateUser } from '../../services/api'
+import { getAccounts, updateUser } from '../../services/api'
 import * as actions from '../../features/user'
-
-const ACCOUNTS = [
-  {
-    title: 'Argent Bank Checking (x8349)',
-    amount: '$2,082.79',
-    amountDescription: 'Available Balance',
-  },
-  {
-    title: 'Argent Bank Savings (x6712)',
-    amount: '$10,928.42',
-    amountDescription: 'Available Balance',
-  },
-  {
-    title: 'Argent Bank Credit Card (x8349)',
-    amount: '$184.30',
-    amountDescription: 'Current Balance',
-  },
-]
 
 export default function Profile() {
   const [firstName, setFirstName] = useState('')
@@ -30,7 +12,7 @@ export default function Profile() {
   const [showEditName, setShowEditName] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const { user, token } = useSelector(selectUser)
-
+  const accounts = getAccounts()
   const dispatch = useDispatch()
 
   const editUserName = async () => {
@@ -104,7 +86,7 @@ export default function Profile() {
         </div>
       )}
       <h2 className='sr-only'>Accounts</h2>
-      {ACCOUNTS.map((account, index) => (
+      {accounts.map((account, index) => (
         <Account
           key={index}
           title={account.title}

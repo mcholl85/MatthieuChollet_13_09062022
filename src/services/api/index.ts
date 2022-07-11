@@ -1,3 +1,5 @@
+import MOCK_ACCOUNTS from '../mocks/accounts.json'
+
 const API_URL = 'http://localhost:3001/api/v1/user/'
 
 interface signinResponse {
@@ -103,4 +105,8 @@ export async function updateUser(
   } catch (error) {
     throw new Error('API not working')
   }
+}
+
+export function getAccounts() {
+  return MOCK_ACCOUNTS.accounts
 }
